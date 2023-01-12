@@ -24,3 +24,15 @@ npm run build
 4. create cloud formation distribution & direct to S3 (Remember to update the s3 rule to only allow from CF)
 
 # Next add dynamodb for store the data
+example demo items:
+```
+{
+ "id": 1,
+ "category": "Fruit",
+ "count": 1,
+ "image": "images/1.jpg",
+ "isInterest": false,
+ "price": 10000,
+ "title": "Strawberry"
+}
+```
