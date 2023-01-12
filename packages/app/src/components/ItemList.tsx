@@ -2,8 +2,7 @@ import { Box } from '@mui/material'
 import React from 'react'
 import { ThreeCircles } from 'react-loader-spinner'
 import { useQuery } from 'react-query'
-import { chunk, map, flow } from 'lodash/fp';
-import { Item } from './Item';
+import { ItemImage } from './ItemImage';
 
 interface ItemData {
     id: number;
@@ -18,7 +17,7 @@ export interface ItemListProps {
 
 export const ItemOverview: React.FC<ItemData> = (props) => {
     return <Box display='flex' flexDirection='row' width={.3}>
-        <Box height={.9} style={{background: props.image}}/>
+        <Box height={.9}><ItemImage url={props.image}/></Box>
         <Box height={.1} display='flex' flexDirection='row'>
             <Box width={.8}>{props.title}</Box>
             <Box width={.2}>{props.price}</Box>
