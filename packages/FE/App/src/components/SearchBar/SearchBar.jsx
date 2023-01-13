@@ -23,7 +23,7 @@ export default function SearchBar() {
       <input
         onChange={(e) => searchKeywordHandler(e)}
         type="text"
-        placeholder="جستجو کنید ..."
+        placeholder="Enter product"
         value={state.searchKey}
       />
       <span>

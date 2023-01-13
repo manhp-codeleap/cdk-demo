@@ -31,10 +31,10 @@ export default function Products() {
               alt=""
             />
             <span className="products_empty_title">
-              با عرض پوزش هیچ محصولی با جستجوی شما مطابقت نداشت!
+              Product is empty
             </span>
             <span className="products_empty_guide">
-              کلمه کلیدی دیگری را وارد کرده و امتحان کنید
+              You can add favorite to your list
             </span>
           </div>
         )}

@@ -15,10 +15,10 @@ export default function Basket() {
     <>
       <div className="favorite_container_linkBar">
         <div className="favorite_linkBar">
-          <span>سبد خرید</span>
+          <span>Bar</span>
           <Link className="favorite_backLink" to={"/"}>
             <HiArrowRight />
-            صفحه محصولات
+            Favourite
           </Link>
         </div>
         {state.basket.length > 0 && (
@@ -26,7 +26,7 @@ export default function Basket() {
             <div className="free_send_title">
               <img src="images/sound(1).jpg" alt="" />
               <span>
-                هزینه ارسال برای خرید های بالای 100,000 تومان رایگان می باشد.
+                send
               </span>
             </div>
           </div>
@@ -42,13 +42,13 @@ export default function Basket() {
           <div className="basket_priceBox">
             <OfferBadge />
             <div className="basket_price">
-              <span>جمع سبد خرید</span>
+              <span>price</span>
               <span>|</span>
               <span>{state.totalPrice.toLocaleString()} تومان</span>
             </div>
             {state.totalPriceAfterOffer > 0 && (
               <div className="basket_offer">
-                <span>قیمت با تخفیف</span>
+                <span>Offer</span>
                 <span>{state.totalPriceAfterOffer.toLocaleString()} تومان</span>
               </div>
             )}
@@ -63,7 +63,7 @@ export default function Basket() {
               onClick={() => dispath({ type: "EMPTY_BASKET" })}
               className="basket_button_remove"
             >
-              حذف {state.basket.length} کالا از سبد خرید
+              all {state.basket.length} will be removed
             </button>
           </div>
         </div>
@@ -74,7 +74,7 @@ export default function Basket() {
             src="images/empty-cart.png"
             alt=""
           />
-          <span className="favorite_empty_title">سبد خرید خالی است</span>
+          <span className="favorite_empty_title">empty</span>
         </div>
       )}
     </>

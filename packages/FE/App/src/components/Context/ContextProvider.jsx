@@ -1,10 +1,11 @@
-import React, { createContext, useReducer } from "react";
-import allProducts from "../../Data";
+import React, { createContext, useReducer, useEffect } from "react";
+import axio from 'axios'
 import offerCode from "../../Offer";
 import { sendPrice } from "../../Offer";
+import axios from "axios";
 
 const initialState = {
-  allProducts,
+  allProducts: [],
   favorites: [],
   basket: [],
   totalPrice: 0,
@@ -51,11 +52,16 @@ const sumPriceWithSend = (totalPrice, offerPrice = 0) => {
 
 const reduce = (state, action) => {
   switch (action.type) {
+    case 'FETCH_PRODUCT':
+      {
+        // fetch 
+        return {...state, allProducts: action.payload };
+      }
     case "ADD_FAVORITE": {
       state.allProducts.forEach((product) => {
         if (product.id === action.payload) {
           product.isInterest = !product.isInterest;
-          state.favorites = allProducts.filter((product) => product.isInterest);
+          state.favorites = state.allProducts.filter((product) => product.isInterest);
           state.isFavorite = true;
         }
       });
@@ -163,6 +169,16 @@ export const ProductDispath = createContext();
 
 export default function ContextProvider({ children }) {
   const [state, dispath] = useReducer(reduce, initialState);
+  // fetch product
+  useEffect(()=> {
+    // load from data file
+    const data = require('../../Data').default
+    dispath({ type: 'FETCH_PRODUCT', payload: data});
+    // axios.get('/api/items').then(data => {
+    //   // console.log(data);
+    //   dispath({ type: 'FETCH_PRODUCT', payload: data.data});
+    // });
+  }, []);
   return (
     <ProductContext.Provider value={{ state }}>
       <ProductDispath.Provider value={{ dispath }}>

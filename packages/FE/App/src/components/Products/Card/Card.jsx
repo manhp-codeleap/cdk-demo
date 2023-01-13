@@ -32,7 +32,7 @@ export default function Card(props) {
           onClick={() => dispath({ type: "ADD_TO_BASKET", payload: props.id })}
           className="products_button buy_button"
         >
-          خرید
+            Add To Card
           <FiShoppingCart className="buy_icon" />
         </button>
       )}
