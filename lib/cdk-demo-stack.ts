@@ -65,20 +65,22 @@ export class CdkDemoStack extends cdk.Stack {
     };
 
     const appDir = 'packages/FE/App';
-    const appAsset = Source.asset(join(__dirname, `../${appDir}`), {
-      bundling: {
-        image: cdk.DockerImage.fromRegistry('node:14-alpine'),
-        command: ['sh', '-c', 'npm i && npm run build'],
-        user: 'root',
-        local: {
-          tryBundle(outputDir: string) {
-            execSync(`cd ${appDir} && npm i && npm run build`, execOptions);
-            copySync(join(__dirname, `../${appDir}/build`), `${outputDir}`);
-            return true;
-          },
-        },
-      },
-    });
+    // easier (build and copy folder)
+    const appAsset = Source.asset(join(__dirname, `../${appDir}/build`));
+    // const appAsset = Source.asset(join(__dirname, `../${appDir}`), {
+    //   bundling: {
+    //     image: cdk.DockerImage.fromRegistry('node:14-alpine'),
+    //     command: ['sh', '-c', 'npm i && npm run build'],
+    //     user: 'root',
+    //     local: {
+    //       tryBundle(outputDir: string) {
+    //         execSync(`cd ${appDir} && npm i && npm run build`, execOptions);
+    //         copySync(join(__dirname, `../${appDir}/build`), `${outputDir}`);
+    //         return true;
+    //       },
+    //     },
+    //   },
+    // });
 
     // create deployment package
     new BucketDeployment(this, `${this.stackName}-shop-deployment`, {
@@ -108,7 +110,7 @@ export class CdkDemoStack extends cdk.Stack {
         },
         handler: 'handler',
         entry: join(__dirname, '../packages/BE/functions/get-items/index.ts'),
-        runtime: Runtime.NODEJS_16_X,
+        runtime: Runtime.NODEJS_14_X,
         memorySize: 256,
         timeout: Duration.seconds(30),
         architecture: Architecture.ARM_64,

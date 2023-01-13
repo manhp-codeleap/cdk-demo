@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.bb7deba1.css",
+    "main.js": "/static/js/main.8b253802.js",
+    "static/media/iranyekanwebregular.e31c09af.woff2": "/static/media/iranyekanwebregular.e31c09af.1cb1e330de9f566e76c7.woff2",
+    "index.html": "/index.html",
+    "main.bb7deba1.css.map": "/static/css/main.bb7deba1.css.map",
+    "main.8b253802.js.map": "/static/js/main.8b253802.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bb7deba1.css",
+    "static/js/main.8b253802.js"
+  ]
+}
