@@ -1,7 +1,11 @@
 import * as cdk from 'aws-cdk-lib';
 import { CfnOutput, Duration, RemovalPolicy } from 'aws-cdk-lib';
 import { LambdaIntegration, RestApi } from 'aws-cdk-lib/aws-apigateway';
-import { Distribution, OriginAccessIdentity, OriginBase } from 'aws-cdk-lib/aws-cloudfront';
+import {
+  Distribution,
+  OriginAccessIdentity,
+  OriginBase,
+} from 'aws-cdk-lib/aws-cloudfront';
 import { RestApiOrigin, S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
 import { AttributeType, Table } from 'aws-cdk-lib/aws-dynamodb';
 import { CanonicalUserPrincipal, PolicyStatement } from 'aws-cdk-lib/aws-iam';
@@ -119,6 +123,12 @@ export class CdkDemoStack extends cdk.Stack {
       deployOptions: {
         stageName: 'dev',
       },
+      defaultCorsPreflightOptions: {
+        allowHeaders: ['*'],
+        allowMethods: ['OPTIONS', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+        allowCredentials: true,
+        allowOrigins: ['*'],
+      },
     });
     const apiResource = apiGateway.root.addResource('api');
     const itemsResource = apiResource.addResource('items');
@@ -133,7 +143,7 @@ export class CdkDemoStack extends cdk.Stack {
     // add api gateway origin
     const apiOrigin = new RestApiOrigin(apiGateway);
     // this mean every request from s3/api/* will be forward to apiGateway/dev/api/*
-    distribution.addBehavior('/api/*', apiOrigin)
+    distribution.addBehavior('/api/*', apiOrigin);
 
     // get output
     // get the output url

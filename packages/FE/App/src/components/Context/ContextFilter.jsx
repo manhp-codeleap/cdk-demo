@@ -1,12 +1,13 @@
-import React, { createContext, useReducer } from "react";
-import allProducts from "../../Data";
+import React, { createContext, useReducer, useContext, useEffect } from "react";
+import { ProductContext } from "./ContextProvider";
 
 const initialFilterState = {
-  filteredItems: [...allProducts],
+  filteredItems: [],
+  allProducts: [],
   searchKey: ""
 };
 
-const filterItemsHandler = (key) => {
+const filterItemsHandler = (allProducts, key) => {
   const filteredItems = allProducts.filter((product) => {
     return product.category === key;
   });
@@ -16,31 +17,34 @@ const filterItemsHandler = (key) => {
 
 const filterReduce = (state, action) => {
   switch (action.type) {
+    case 'INIT': {
+      return {...state, allProducts: action.payload, filteredItems: action.payload }
+    }
     case "SEARCH_KEYWORD":
       state.searchKey = action.payload;
       return {
         ...state
       };
     case "ALL":
-      state.filteredItems = [...allProducts];
+      state.filteredItems = [...state.allProducts];
       return {
         ...state
       };
     case "VEGETABLE":
       return {
-        ...filterItemsHandler("سبزیجات")
+        ...filterItemsHandler(state.allProducts, "سبزیجات")
       };
     case "FRUIT":
       return {
-        ...filterItemsHandler("میوه جات")
+        ...filterItemsHandler(state.allProducts, "میوه جات")
       };
     case "NUTS":
       return {
-        ...filterItemsHandler("خشکبار")
+        ...filterItemsHandler(state.allProducts, "خشکبار")
       };
     case "BEANS":
       return {
-        ...filterItemsHandler("حبوبات")
+        ...filterItemsHandler(state.allProducts, "حبوبات")
       };
     default:
       return state;
@@ -51,7 +55,15 @@ export const FilterContext = createContext();
 export const FilterDispath = createContext();
 
 export default function ContextFilter({ children }) {
+  
   const [state, dispath] = useReducer(filterReduce, initialFilterState);
+  const productContext = useContext(ProductContext);
+  useEffect(()=> {
+    console.log(productContext.state.allProducts)
+    dispath({ type: 'INIT', payload: productContext.state.allProducts });
+  }, [productContext]);
+  
+  console.log(state)
   return (
     <FilterContext.Provider value={{ state }}>
       <FilterDispath.Provider value={{ dispath }}>

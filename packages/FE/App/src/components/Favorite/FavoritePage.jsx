@@ -16,7 +16,7 @@ export default function FavoritePage() {
           <span>علاقه مندی ها</span>
           <Link className="favorite_backLink" to={"/"}>
             <HiArrowRight />
-            صفحه محصولات
+            Go home
           </Link>
         </div>
       </div>
@@ -28,7 +28,7 @@ export default function FavoritePage() {
                 onClick={() => dispath({ type: "REMOVE_ALL_FAVORITE" })}
                 className="favorite_removeAll"
               >
-                حذف همه
+                Remove all
               </button>
             </div>
             <div className="favorite_container">
@@ -44,7 +44,7 @@ export default function FavoritePage() {
               src="images/empty_favorite.svg"
               alt=""
             />
-            <span className="favorite_empty_title">علاقه مندی ها خالی است</span>
+            <span className="favorite_empty_title">No favorite item</span>
           </div>
         )}
       </div>
